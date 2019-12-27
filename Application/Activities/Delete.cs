@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Errors;
+using System.Net;
 
 namespace Application.Activities
 {
@@ -31,7 +33,8 @@ namespace Application.Activities
 
                         var activity = await _context.Activitie.FindAsync(request.Id);
                           if (activity == null)
-                                throw new Exception("could not find activity");
+                                throw new RestException(HttpStatusCode.NotFound, new{activity 
+                                = "not found"});
                           _context.Remove(activity);
                         
 
